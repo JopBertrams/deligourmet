@@ -119,8 +119,8 @@
   let selectedCategory;
 
   let isVegan = false;
-  let isMeat = true;
-  let isFish = true;
+  let isMeat = false;
+  let isFish = false;
 
   onMount(async () => {
     // Get broodjes from API
@@ -161,6 +161,9 @@
     } else {
       allItems
         .filter((item) => item.Categorie == selectedCategory)
+        .filter((item) => (isVegan ? item.IsVegan : true))
+        .filter((item) => (isMeat ? item.BevatVlees : true))
+        .filter((item) => (isFish ? item.BevatVis : true))
         .forEach((item) => {
           itemsOnWheel = [
             ...itemsOnWheel,
@@ -174,6 +177,65 @@
             },
           ];
         });
+    }
+
+    // Check if the items on the wheel are not empty
+    if (itemsOnWheel.length == 0) {
+      const selectedCategoryText = categories.find(
+        (categorie) => categorie.id == selectedCategory
+      )?.text;
+      const specialCategories = ['fruit', 'dranken', 'salades', 'wraps'];
+      let typeOfItem = specialCategories.includes(selectedCategory)
+        ? selectedCategory
+        : 'broodjes';
+      typeOfItem = selectedCategory == 'fruit' ? 'fruit stukken' : typeOfItem;
+      if (isVegan) {
+        Swal.fire({
+          title: 'Huh?!',
+          text:
+            'Probeer je me nou voor de gek te houden? Er zijn geen ' +
+            typeOfItem +
+            ' in de categorie ' +
+            selectedCategoryText +
+            ' die vegan zijn!',
+          confirmButtonText: 'Sorry, mijn fout. Ik zal het niet meer doen.',
+        });
+      }
+      if (isMeat) {
+        Swal.fire({
+          title: 'Huh?!',
+          text:
+            'Probeer je me nou voor de gek te houden? Er zijn geen ' +
+            typeOfItem +
+            ' in de categorie ' +
+            selectedCategoryText +
+            ' die vlees bevatten!',
+          confirmButtonText: 'Sorry, mijn fout. Ik zal het niet meer doen.',
+        });
+      }
+      if (isFish) {
+        Swal.fire({
+          title: 'Huh?!',
+          text:
+            'Probeer je me nou voor de gek te houden? Er zijn geen ' +
+            typeOfItem +
+            ' in de categorie ' +
+            selectedCategoryText +
+            ' die vis bevatten!',
+          confirmButtonText: 'Sorry, mijn fout. Ik zal het niet meer doen.',
+        });
+      }
+      itemsOnWheel = [
+        ...itemsOnWheel,
+        {
+          fillStyle: '#a6a6a6',
+          text: '¯\\_(ツ)_/¯',
+          product: 'What did you expect?',
+          beschrijving:
+            'Ik heb geen idee wat je verwacht had, maar dit is wat je krijgt als je alsnog aan het rad gaat draaien.',
+          rickroll: true,
+        },
+      ];
     }
 
     // Create the wheel
@@ -218,6 +280,17 @@
   function wheelFinished(indicatedSegment) {
     // Stop blinking background
     intervalManager(false);
+
+    // Check if the item is a rickroll
+    if (indicatedSegment.rickroll) {
+      Swal.fire({
+        title: indicatedSegment.product,
+        text: indicatedSegment.beschrijving,
+        confirmButtonText: 'Nu schaam ik me wel een beetje...',
+      });
+      startRickrollAudio();
+      return;
+    }
 
     // Show alert with product and description
     Swal.fire({
@@ -332,6 +405,13 @@
         isVegan = false;
       }
     }
+
+    createWheel();
+  }
+
+  function startRickrollAudio() {
+    const audio = new Audio('audio/rickroll.mp3');
+    audio.play();
   }
 </script>
 

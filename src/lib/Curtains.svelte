@@ -14,7 +14,7 @@
     let leonardo_dicaprio_pointing = document.getElementById(
       'leonardo_dicaprio_pointing'
     );
-    //audio.play();
+    audio.play();
     curtains.play();
     setTimeout(() => {
       man_pointing.play();
