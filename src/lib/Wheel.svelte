@@ -1,119 +1,119 @@
 <script>
-  import { onMount } from 'svelte';
-  import Swal from 'sweetalert2';
-  import 'sweetalert2/src/sweetalert2.scss';
+  import { onMount } from "svelte";
+  import Swal from "sweetalert2";
+  import "sweetalert2/src/sweetalert2.scss";
 
   let theWheel;
   let wheelPower = 2;
   let wheelSpinning = false;
   let wheelHasSpun = false;
   let colors = [
-    '#FF0000',
-    '#FF7F00',
-    '#FFFF00',
-    '#00FF00',
-    '#0000FF',
-    '#4B0082',
-    '#9400D3',
-    '#FF0000',
-    '#FF7F00',
-    '#FFFF00',
-    '#00FF00',
-    '#0000FF',
-    '#4B0082',
-    '#9400D3',
-    '#FF0000',
-    '#FF7F00',
-    '#FFFF00',
-    '#00FF00',
-    '#0000FF',
-    '#4B0082',
-    '#9400D3',
-    '#FF0000',
-    '#FF7F00',
-    '#FFFF00',
-    '#00FF00',
-    '#0000FF',
-    '#4B0082',
-    '#9400D3',
-    '#FF0000',
-    '#FF7F00',
-    '#FFFF00',
-    '#00FF00',
-    '#0000FF',
-    '#4B0082',
-    '#9400D3',
-    '#FF0000',
-    '#FF7F00',
-    '#FFFF00',
-    '#00FF00',
-    '#0000FF',
-    '#4B0082',
-    '#9400D3',
-    '#FF0000',
-    '#FF7F00',
-    '#FFFF00',
-    '#00FF00',
-    '#0000FF',
-    '#4B0082',
-    '#9400D3',
-    '#FF0000',
-    '#FF7F00',
-    '#FFFF00',
-    '#00FF00',
-    '#0000FF',
-    '#4B0082',
-    '#9400D3',
-    '#FF0000',
-    '#FF7F00',
+    "#FF0000",
+    "#FF7F00",
+    "#FFFF00",
+    "#00FF00",
+    "#0000FF",
+    "#4B0082",
+    "#9400D3",
+    "#FF0000",
+    "#FF7F00",
+    "#FFFF00",
+    "#00FF00",
+    "#0000FF",
+    "#4B0082",
+    "#9400D3",
+    "#FF0000",
+    "#FF7F00",
+    "#FFFF00",
+    "#00FF00",
+    "#0000FF",
+    "#4B0082",
+    "#9400D3",
+    "#FF0000",
+    "#FF7F00",
+    "#FFFF00",
+    "#00FF00",
+    "#0000FF",
+    "#4B0082",
+    "#9400D3",
+    "#FF0000",
+    "#FF7F00",
+    "#FFFF00",
+    "#00FF00",
+    "#0000FF",
+    "#4B0082",
+    "#9400D3",
+    "#FF0000",
+    "#FF7F00",
+    "#FFFF00",
+    "#00FF00",
+    "#0000FF",
+    "#4B0082",
+    "#9400D3",
+    "#FF0000",
+    "#FF7F00",
+    "#FFFF00",
+    "#00FF00",
+    "#0000FF",
+    "#4B0082",
+    "#9400D3",
+    "#FF0000",
+    "#FF7F00",
+    "#FFFF00",
+    "#00FF00",
+    "#0000FF",
+    "#4B0082",
+    "#9400D3",
+    "#FF0000",
+    "#FF7F00",
   ];
   let discoInterval = null;
   let allItems = [];
   let itemsOnWheel = [];
   let categories = [
     {
-      id: 'toppers',
-      text: 'Toppers',
+      id: "toppers",
+      text: "Toppers",
     },
     {
-      id: 'mediterrane',
-      text: 'Mediterrane',
+      id: "mediterrane",
+      text: "Mediterrane",
     },
     {
-      id: 'wraps',
-      text: 'Wraps',
+      id: "wraps",
+      text: "Wraps",
     },
     {
-      id: 'broodjes_gezond',
-      text: 'Broodje gezond',
+      id: "broodjes_gezond",
+      text: "Broodje gezond",
     },
     {
-      id: 'clubsandwiches',
-      text: 'Clubsandwiches',
+      id: "clubsandwiches",
+      text: "Clubsandwiches",
     },
     {
-      id: 'filet_americain',
-      text: 'Filet Americain',
+      id: "filet_americain",
+      text: "Filet Americain",
     },
     {
-      id: 'koud_beleg',
-      text: 'Koud Beleg',
+      id: "koud_beleg",
+      text: "Koud Beleg",
     },
     {
-      id: 'salades',
-      text: 'Salades',
+      id: "salades",
+      text: "Salades",
     },
     {
-      id: 'fruit',
-      text: 'Fruit',
+      id: "fruit",
+      text: "Fruit",
     },
     {
-      id: 'dranken',
-      text: 'Dranken',
+      id: "dranken",
+      text: "Dranken",
     },
     {
-      id: 'alles',
-      text: 'Alles!',
+      id: "alles",
+      text: "Alles!",
     },
   ];
   let selectedCategory;
@@ -124,7 +124,7 @@
 
   onMount(async () => {
     // Get broodjes from API
-    fetch('http://broodjes.data.jopbertrams.nl/api/broodjes.php')
+    fetch("http://broodjes.data.jopbertrams.nl/api/broodjes.php")
       .then((response) => response.json())
       .then((data) => {
         allItems = data.data;
@@ -132,9 +132,9 @@
       });
 
     // Get range slider and bubble and set bubble to correct position
-    const range = document.getElementById('range');
-    const bubble = document.getElementById('bubble');
-    range.addEventListener('input', () => {
+    const range = document.getElementById("range");
+    const bubble = document.getElementById("bubble");
+    range.addEventListener("input", () => {
       setBubble(range, bubble);
     });
     setBubble(range, bubble);
@@ -143,21 +143,25 @@
   function createWheel() {
     // Get items from selected category
     itemsOnWheel = [];
-    if (selectedCategory == 'alles') {
-      allItems.forEach((item) => {
-        itemsOnWheel = [
-          ...itemsOnWheel,
-          {
-            fillStyle: colors[allItems.indexOf(item) % colors.length], // Set color to one of the colors, repeat if there are more items than colors
-            text: (allItems.indexOf(item) + 1).toString(),
-            textFontSize: 9,
-            product: item.Product,
-            beschrijving: item.Beschrijving,
-            prijs: item.Prijs,
-            categorie: item.Categorie,
-          },
-        ];
-      });
+    if (selectedCategory == "alles") {
+      allItems
+        .filter((item) => (isVegan ? item.IsVegan : true))
+        .filter((item) => (isMeat ? item.BevatVlees : true))
+        .filter((item) => (isFish ? item.BevatVis : true))
+        .forEach((item) => {
+          itemsOnWheel = [
+            ...itemsOnWheel,
+            {
+              fillStyle: colors[allItems.indexOf(item) % colors.length], // Set color to one of the colors, repeat if there are more items than colors
+              text: (allItems.indexOf(item) + 1).toString(),
+              textFontSize: 9,
+              product: item.Product,
+              beschrijving: item.Beschrijving,
+              prijs: item.Prijs,
+              categorie: item.Categorie,
+            },
+          ];
+        });
     } else {
       allItems
         .filter((item) => item.Categorie == selectedCategory)
@@ -184,55 +188,55 @@
       const selectedCategoryText = categories.find(
         (categorie) => categorie.id == selectedCategory
       )?.text;
-      const specialCategories = ['fruit', 'dranken', 'salades', 'wraps'];
+      const specialCategories = ["fruit", "dranken", "salades", "wraps"];
       let typeOfItem = specialCategories.includes(selectedCategory)
         ? selectedCategory
-        : 'broodjes';
-      typeOfItem = selectedCategory == 'fruit' ? 'fruit stukken' : typeOfItem;
+        : "broodjes";
+      typeOfItem = selectedCategory == "fruit" ? "fruit stukken" : typeOfItem;
       if (isVegan) {
         Swal.fire({
-          title: 'Huh?!',
+          title: "Huh?!",
           text:
-            'Probeer je me nou voor de gek te houden? Er zijn geen ' +
+            "Probeer je me nou voor de gek te houden? Er zijn geen " +
             typeOfItem +
-            ' in de categorie ' +
+            " in de categorie " +
             selectedCategoryText +
-            ' die vegan zijn!',
-          confirmButtonText: 'Sorry, mijn fout. Ik zal het niet meer doen.',
+            " die vegan zijn!",
+          confirmButtonText: "Sorry, mijn fout. Ik zal het niet meer doen.",
         });
       }
       if (isMeat) {
         Swal.fire({
-          title: 'Huh?!',
+          title: "Huh?!",
           text:
-            'Probeer je me nou voor de gek te houden? Er zijn geen ' +
+            "Probeer je me nou voor de gek te houden? Er zijn geen " +
             typeOfItem +
-            ' in de categorie ' +
+            " in de categorie " +
             selectedCategoryText +
-            ' die vlees bevatten!',
-          confirmButtonText: 'Sorry, mijn fout. Ik zal het niet meer doen.',
+            " die vlees bevatten!",
+          confirmButtonText: "Sorry, mijn fout. Ik zal het niet meer doen.",
         });
       }
       if (isFish) {
         Swal.fire({
-          title: 'Huh?!',
+          title: "Huh?!",
           text:
-            'Probeer je me nou voor de gek te houden? Er zijn geen ' +
+            "Probeer je me nou voor de gek te houden? Er zijn geen " +
             typeOfItem +
-            ' in de categorie ' +
+            " in de categorie " +
             selectedCategoryText +
-            ' die vis bevatten!',
-          confirmButtonText: 'Sorry, mijn fout. Ik zal het niet meer doen.',
+            " die vis bevatten!",
+          confirmButtonText: "Sorry, mijn fout. Ik zal het niet meer doen.",
         });
       }
       itemsOnWheel = [
         ...itemsOnWheel,
         {
-          fillStyle: '#a6a6a6',
-          text: '¯\\_(ツ)_/¯',
-          product: 'What did you expect?',
+          fillStyle: "#a6a6a6",
+          text: "¯\\_(ツ)_/¯",
+          product: "What did you expect?",
           beschrijving:
-            'Ik heb geen idee wat je verwacht had, maar dit is wat je krijgt als je alsnog aan het rad gaat draaien.',
+            "Ik heb geen idee wat je verwacht had, maar dit is wat je krijgt als je alsnog aan het rad gaat draaien.",
           rickroll: true,
         },
       ];
@@ -243,28 +247,28 @@
       outerRadius: 290, // Set outer radius
       innerRadius: 100, // Make wheel hollow
       textFontSize: 24, // Default font size for the segments
-      textOrientation: 'horizontal',
-      textAlignment: 'outer', // Align text to outside of wheel
+      textOrientation: "horizontal",
+      textAlignment: "outer", // Align text to outside of wheel
       numSegments: itemsOnWheel.length, // Specify number of segments
       segments: itemsOnWheel, // Define segments including colour and text
       animation: {
-        type: 'spinToStop',
+        type: "spinToStop",
         duration: 10, // Duration in seconds
         spins: 3, // Default number of complete spins
         callbackFinished: wheelFinished,
         callbackSound: playSound,
-        soundTrigger: 'pin', // Specify pins are to trigger the sound, the other option is 'segment'
+        soundTrigger: "pin", // Specify pins are to trigger the sound, the other option is 'segment'
       },
       pins: {
         number: itemsOnWheel.length,
-        fillStyle: 'silver',
+        fillStyle: "silver",
         outerRadius: 4,
       },
     });
   }
 
   // Loads the tick audio sound in to an audio object
-  let audio = new Audio('audio/tick.mp3');
+  let audio = new Audio("audio/tick.mp3");
 
   // This function is called when the sound is to be played.
   function playSound() {
@@ -286,7 +290,7 @@
       Swal.fire({
         title: indicatedSegment.product,
         text: indicatedSegment.beschrijving,
-        confirmButtonText: 'Nu schaam ik me wel een beetje...',
+        confirmButtonText: "Nu schaam ik me wel een beetje...",
       });
       startRickrollAudio();
       return;
@@ -296,21 +300,21 @@
     Swal.fire({
       title: indicatedSegment.product,
       text: indicatedSegment.beschrijving,
-      imageUrl: './videos/party-popper.gif',
+      imageUrl: "./videos/party-popper.gif",
       imageWidth: 100,
       imageHeight: 100,
-      confirmButtonText: 'Die pak ik!',
+      confirmButtonText: "Die pak ik!",
       showDenyButton: true,
       denyButtonText:
         '<p style="font-size: 10px;">Boehoe ik gebruik een rad om te kiezen, maar ben het vervolgens niet eens met de keuze!</p>',
     }).then((result) => {
       if (result.isDenied) {
         Swal.fire({
-          title: 'Nog een keer dan maar...',
-          text: 'De broodjesgoden zijn het er niet mee eens, maar hebben het rad gereset.',
-          imageUrl: './videos/rewind-time.gif',
+          title: "Nog een keer dan maar...",
+          text: "De broodjesgoden zijn het er niet mee eens, maar hebben het rad gereset.",
+          imageUrl: "./videos/rewind-time.gif",
           imageWidth: 300,
-          confirmButtonText: 'Dankjewel',
+          confirmButtonText: "Dankjewel",
         });
         resetWheel();
       }
@@ -354,7 +358,7 @@
 
   function backgroundDisco() {
     document.body.style.setProperty(
-      '--bgColor',
+      "--bgColor",
       colors[Math.floor(Math.random() * 5)]
     );
   }
@@ -374,11 +378,11 @@
     const max = range.max;
     const newVal = Number(((val - min) * 100) / (max - min));
     if (val == 1) {
-      bubble.innerHTML = 'Zacht';
+      bubble.innerHTML = "Zacht";
     } else if (val == 2) {
-      bubble.innerHTML = 'Normaal';
+      bubble.innerHTML = "Normaal";
     } else if (val == 3) {
-      bubble.innerHTML = 'Hard!';
+      bubble.innerHTML = "Hard!";
     }
 
     // Move bubble to correct position
@@ -388,18 +392,18 @@
   function handleCheckboxChange(event) {
     const checkboxId = event.target.id;
 
-    if (checkboxId === 'vegan') {
+    if (checkboxId === "vegan") {
       isVegan = event.target.checked;
       if (isVegan) {
         isMeat = false;
         isFish = false;
       }
-    } else if (checkboxId === 'meat') {
+    } else if (checkboxId === "meat") {
       isMeat = event.target.checked;
       if (isMeat) {
         isVegan = false;
       }
-    } else if (checkboxId === 'fish') {
+    } else if (checkboxId === "fish") {
       isFish = event.target.checked;
       if (isFish) {
         isVegan = false;
@@ -410,7 +414,7 @@
   }
 
   function startRickrollAudio() {
-    const audio = new Audio('audio/rickroll.mp3');
+    const audio = new Audio("audio/rickroll.mp3");
     audio.play();
   }
 </script>
@@ -515,7 +519,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    background-image: url('../assets/wheelBackground.png');
+    background-image: url("../assets/wheelBackground.png");
     background-position: center;
     background-repeat: none;
     height: 772px;
@@ -637,7 +641,7 @@
   }
 
   #bubble::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 10px;
     height: 10px;
