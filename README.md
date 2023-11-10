@@ -1,6 +1,8 @@
 # Deligourmet Spin The Wheel 🥪🎡
 Welkom bij het broodjes rad, waar jouw lunchbestemming op je wacht! 🌯✨
 
+<img src="https://www.deligourmet.nl/wp-content/uploads/2020/06/cropped-logo_deligourmet.png" alt="Deligourmet logo" width="200px">
+
 ## Inleiding
 De broodjes draaier is een opwindende webtoepassing die is ontworpen om de uitdagende beslissing van het kiezen van een broodje voor de lunch een amusante ervaring te maken. Met een visueel verbluffend draaiend wiel, compleet met openschuivende gordijnen en een dynamische achtergrond, is jouw lunchselectie nog nooit zo leuk geweest!
 
