@@ -29,3 +29,9 @@ npm run dev
 ```
 
 **Opmerking:** Om de magie van de broodjes draaier te ervaren moet JavaScript ingeschakeld zijn in je browser 📜🌐
+
+## Ideeën
+Hieronder nog wat enkele betoverende features die op een later moment aan de applicatie toegevoegd kunnen worden:
+- [ ] Filter toevoegen voor 2/3 vleessoorten op één broodje
+- [ ] Broodje v/d maand crawler
+- [ ] Whatsapp integratie
